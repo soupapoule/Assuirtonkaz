@@ -5,17 +5,48 @@
  */
 package com.mycompany.assurtonkaz;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.Client;
+import models.ListeClient;
+import models.m_Connexion;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author badbo
  */
-public class ListeClient extends javax.swing.JFrame {
+public class ListeClientForm extends javax.swing.JFrame {
 
+List<Client> listeClient = new ArrayList<Client>();
+ListeClient modelClient = new ListeClient(listeClient);
     /**
-     * Creates new form ListeClient
+     * Create s new form ListeClient
      */
-    public ListeClient() {
+    public ListeClientForm() throws SQLException {
         initComponents();
+        
+        Connection  co = m_Connexion.connexion();
+            Statement st = co.createStatement();
+            ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";" );
+        while(resultat.next()){
+            Integer id = resultat.getInt("IdClient");
+            String nom= resultat.getString("NomClient");
+            String prenom = resultat.getString("PrenomClient");
+            
+            Client c = new Client();
+              c.setIdClient(id);
+              c.setNomClient(nom);
+              c.setPrenomClient(prenom);
+              
+        modelClient.addClient(c);
+        jList1.setModel(modelClient);
+                }
     }
 
     /**
@@ -33,23 +64,38 @@ public class ListeClient extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jList1);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Liste de client ");
 
         jButton1.setText("Selectionner");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jMenu1.setText("Ajouter un client");
+        jMenu1.setText("Clients");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+
+        jMenuItem1.setText("Ajouter un client");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("  Deconnexion");
@@ -92,6 +138,20 @@ public class ListeClient extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        AddClient addClient = new AddClient();
+        addClient.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -122,7 +182,11 @@ public class ListeClient extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListeClient().setVisible(true);
+                try {
+                    new ListeClientForm().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(ListeClientForm.class.getName()).log(Level.SEVERE, null, ex);
+                }    
             }
         });
     }
@@ -134,6 +198,7 @@ public class ListeClient extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

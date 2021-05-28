@@ -14,9 +14,9 @@ import javax.swing.AbstractListModel;
  */
 public class ListeClient extends AbstractListModel{
     
-    private List<Personne> liste;
+    private List<Client> liste;
     
-    public ListeClient(List<Personne> liste) {
+    public ListeClient(List<Client> liste) {
         this.liste = liste; 
     }
 
@@ -33,8 +33,8 @@ public class ListeClient extends AbstractListModel{
        return liste.get(index);
     }
     
-    public void addClient(Personne p){
-        this.liste.add(p);
+    public void addClient(Client c){
+        this.liste.add(c);
         this.fireContentsChanged(liste, 0, 0);
         
     }

@@ -125,7 +125,7 @@ public class Connexion extends javax.swing.JFrame {
                 String usernameBDD = resultat.getString("username");
                 String passwordBDD = resultat.getString("password");
                 if(username.equals(usernameBDD) && password.equals(passwordBDD)){
-                   ListeClient client = new ListeClient();
+                   ListeClientForm client = new ListeClientForm();
                    this.setVisible(false);
                    client.setVisible(true);
                 }else{
