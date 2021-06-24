@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 import models.Client;
 import models.m_Connexion;
 
-
 /**
  *
  * @author badbo
@@ -48,7 +47,8 @@ public class AddClient extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         TelInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,34 +137,30 @@ public class AddClient extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        
-        Connection  co = m_Connexion.connexion();
+
+        Connection co = m_Connexion.connexion();
         int count;
         try {
-            Statement  st = co.createStatement();
-//             ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
-//             if(resultat != null){
-//                 count = resultat.getInt(1);
-//             }else{
-//             count = 1;
-//                     }
-        //get
-        Client c = new Client();
-        c.setIdClient(2);
-        c.setNomClient(NomInput.getName());
-        c.setPrenomClient(PrenomInput.getName());
-        c.setTelClient(TelInput.getName());
-        c.setMailClient(MailInput.getName());
-        
-        
-        PreparedStatement     pst = co.prepareStatement("INSERT INTO public.\"Clients\" VALUES (?,?,?,?,?)");
-        pst.setInt(1, c.getIdClient());
-        pst.setString(2, c.getNomClient());
-        pst.setString(3, c.getPrenomClient());
-        pst.setString(4, c.getTelClient());
-        pst.setString(5, c.getMailClient());
-        pst.execute(); 
+            Statement st = co.createStatement();
+            ResultSet resultat = st.executeQuery("Select Count(*) from public.\"Clients\";");
+            resultat.next();
+            count = resultat.getInt(1);
+            //get
+            Client c = new Client();
+            c.setIdClient(++count);
+            c.setNomClient(NomInput.getText());
+            c.setPrenomClient(PrenomInput.getText());
+            c.setTelClient(TelInput.getText());
+            c.setMailClient(MailInput.getText());
+
+            PreparedStatement pst = co.prepareStatement("INSERT INTO public.\"Clients\" VALUES (?,?,?,?,?)");
+            pst.setInt(1, c.getIdClient());
+            pst.setString(2, c.getNomClient());
+            pst.setString(3, c.getPrenomClient());
+            pst.setString(4, c.getTelClient());
+            pst.setString(5, c.getMailClient());
+            pst.executeUpdate();
+            pst.close();
         } catch (SQLException ex) {
             Logger.getLogger(AddClient.class.getName()).log(Level.SEVERE, null, ex);
         }

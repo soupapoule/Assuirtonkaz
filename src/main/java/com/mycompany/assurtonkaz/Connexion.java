@@ -121,7 +121,6 @@ public class Connexion extends javax.swing.JFrame {
             Statement st = co.createStatement();
             ResultSet resultat = st.executeQuery("Select * from public.\"Admin\";" );
             while(resultat.next()){
-                
                 String usernameBDD = resultat.getString("username");
                 String passwordBDD = resultat.getString("password");
                 if(username.equals(usernameBDD) && password.equals(passwordBDD)){
