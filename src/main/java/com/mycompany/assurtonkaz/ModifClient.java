@@ -5,26 +5,21 @@
  */
 package com.mycompany.assurtonkaz;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.Client;
-import models.m_Connexion;
+import models.*;
+
 
 /**
- *
  * @author badbo
  */
-public class AddClient extends javax.swing.JFrame {
+public class ModifClient extends javax.swing.JFrame {
 
     /**
-     * Creates new form AddClient
+     * Creates new form ModifClient
      */
-    public AddClient() {
+    public ModifClient() {
         initComponents();
     }
 
@@ -37,18 +32,30 @@ public class AddClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         PrenomInput = new javax.swing.JTextField();
         NomInput = new javax.swing.JTextField();
         TelInput = new javax.swing.JTextField();
         MailInput = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel2.setText("Prénom");
+
+        jLabel3.setText("Téléphone");
+
+        jLabel4.setText("Email");
+
+        jButton1.setText("Valider");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         TelInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,25 +71,12 @@ public class AddClient extends javax.swing.JFrame {
 
         jLabel1.setText("Nom");
 
-        jLabel2.setText("Prénom");
-
-        jLabel3.setText("Téléphone");
-
-        jLabel4.setText("Email");
-
-        jButton1.setText("Valider");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(76, Short.MAX_VALUE)
+                .addContainerGap(68, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -119,21 +113,13 @@ public class AddClient extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(MailInput, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void TelInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TelInputActionPerformed
-
-    private void MailInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MailInputActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MailInputActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -143,17 +129,17 @@ public class AddClient extends javax.swing.JFrame {
         try {
             Statement st = co.createStatement();
             ResultSet resultat = st.executeQuery("Select Count(*) from public.\"Clients\";");
-//            resultat.next();
+            resultat.next();
             count = resultat.getInt(1);
             //get
             Client c = new Client();
-            c.setIdClient(++count);
+            c.setIdClient(count);
             c.setNomClient(NomInput.getText());
             c.setPrenomClient(PrenomInput.getText());
             c.setTelClient(TelInput.getText());
             c.setMailClient(MailInput.getText());
 
-            PreparedStatement pst = co.prepareStatement("INSERT INTO public.\"Clients\" VALUES (?,?,?,?,?)");
+            PreparedStatement pst = co.prepareStatement("UPDATE public.\"Clients\" SET \"IdClient\"=?, \"NomClient\"=?, \"PrenomClient\"=?, \"TelClient\"=?, \"MailClient\"=? WHERE IdClient ="+c.getIdClient());
             pst.setInt(1, c.getIdClient());
             pst.setString(2, c.getNomClient());
             pst.setString(3, c.getPrenomClient());
@@ -165,6 +151,14 @@ public class AddClient extends javax.swing.JFrame {
             Logger.getLogger(AddClient.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void TelInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TelInputActionPerformed
+
+    private void MailInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MailInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_MailInputActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,20 +177,20 @@ public class AddClient extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModifClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddClient().setVisible(true);
+                new ModifClient().setVisible(true);
             }
         });
     }

@@ -5,6 +5,10 @@
  */
 package com.mycompany.assurtonkaz;
 
+import static com.mycompany.assurtonkaz.ModifClient.MailInput;
+import static com.mycompany.assurtonkaz.ModifClient.NomInput;
+import static com.mycompany.assurtonkaz.ModifClient.PrenomInput;
+import static com.mycompany.assurtonkaz.ModifClient.TelInput;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,30 +27,38 @@ import java.util.List;
  */
 public class ListeClientForm extends javax.swing.JFrame {
 
-List<Client> listeClient = new ArrayList<Client>();
-ListeClient modelClient = new ListeClient(listeClient);
+    List<Client> listeClient = new ArrayList<Client>();
+    ListeClient modelClient = new ListeClient(listeClient);
+    Connection co = m_Connexion.connexion();
+    Statement st = co.createStatement();
+    
+
     /**
      * Create s new form ListeClient
      */
     public ListeClientForm() throws SQLException {
         initComponents();
+ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
         
-        Connection  co = m_Connexion.connexion();
-            Statement st = co.createStatement();
-            ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";" );
-        while(resultat.next()){
+        while (resultat.next()) {
             Integer id = resultat.getInt("IdClient");
-            String nom= resultat.getString("NomClient");
+            String nom = resultat.getString("NomClient");
             String prenom = resultat.getString("PrenomClient");
-            
+            String tel = resultat.getString("TelClient");
+            String mail = resultat.getString("MailClient");
+
             Client c = new Client();
-              c.setIdClient(id);
-              c.setNomClient(nom);
-              c.setPrenomClient(prenom);
-              
-        modelClient.addClient(c);
-        jList1.setModel(modelClient);
-                }
+            c.setIdClient(id);
+            c.setNomClient(nom);
+            c.setPrenomClient(prenom);
+            c.setMailClient(mail);
+            c.setTelClient(tel);
+
+            
+            modelClient.addClient(c);
+            jList1.setModel(modelClient);
+        }
+        
     }
 
     /**
@@ -58,6 +70,8 @@ ListeClient modelClient = new ListeClient(listeClient);
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupMenu1 = new java.awt.PopupMenu();
+        popupMenu2 = new java.awt.PopupMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
@@ -67,8 +81,20 @@ ListeClient modelClient = new ListeClient(listeClient);
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
+        popupMenu1.setLabel("popupMenu1");
+
+        popupMenu2.setLabel("popupMenu2");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jList1MouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -113,24 +139,24 @@ ListeClient modelClient = new ListeClient(listeClient);
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(257, 257, 257)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(283, 283, 283)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(57, Short.MAX_VALUE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(71, 71, 71)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68)
+                .addGap(74, 74, 74)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(44, 44, 44)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -151,6 +177,49 @@ ListeClient modelClient = new ListeClient(listeClient);
         AddClient addClient = new AddClient();
         addClient.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jList1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseReleased
+        
+    }//GEN-LAST:event_jList1MouseReleased
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+             Integer idSelected;
+             ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
+             idSelected = jList1.getSelectedIndex() + 1; 
+            while (resultat.next()) {
+                
+                Integer id = resultat.getInt("IdClient"); 
+                
+                if(idSelected.equals(id)){
+                String nom = resultat.getString("NomClient");
+                String prenom = resultat.getString("PrenomClient");
+                String tel = resultat.getString("TelClient");
+                String mail = resultat.getString("MailClient");
+                
+                Client c = new Client();
+                c.setIdClient(id);
+                c.setNomClient(nom);
+                c.setPrenomClient(prenom);
+                c.setMailClient(mail);
+                c.setTelClient(tel);
+                
+                ModifClient modifC = new ModifClient();
+                modifC.NomInput.setText(c.getNomClient());
+                modifC.PrenomInput.setText(c.getPrenomClient());
+                modifC.TelInput.setText(c.getTelClient());
+                modifC.MailInput.setText(c.getMailClient());
+                modifC.setVisible(true);
+                }else{
+                   continue;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListeClientForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jList1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -186,7 +255,7 @@ ListeClient modelClient = new ListeClient(listeClient);
                     new ListeClientForm().setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(ListeClientForm.class.getName()).log(Level.SEVERE, null, ex);
-                }    
+                }
             }
         });
     }
@@ -194,11 +263,13 @@ ListeClient modelClient = new ListeClient(listeClient);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
+    public static javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
+    private java.awt.PopupMenu popupMenu1;
+    private java.awt.PopupMenu popupMenu2;
     // End of variables declaration//GEN-END:variables
 }

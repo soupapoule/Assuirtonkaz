@@ -38,7 +38,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client : " + IdClient + "Nom  " + NomClient + ", Prenom " + PrenomClient + ", Tel " + TelClient + ", Mail " + MailClient + '}';
+        return "Client : " + IdClient + " Nom:  " + NomClient + " Prenom: " + PrenomClient + " Tel: " + TelClient + " Mail: " + MailClient;
     }
 
     public void setPrenomClient(String PrenomClient) {
