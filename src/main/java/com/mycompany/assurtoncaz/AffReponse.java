@@ -36,7 +36,6 @@ public class AffReponse extends javax.swing.JFrame implements Observateur{
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -46,7 +45,6 @@ public class AffReponse extends javax.swing.JFrame implements Observateur{
         jLabel10 = new javax.swing.JLabel();
         lbRep1 = new javax.swing.JLabel();
         lbRep2 = new javax.swing.JLabel();
-        lbRep3 = new javax.swing.JLabel();
         lbRep4 = new javax.swing.JLabel();
         lbRep5 = new javax.swing.JLabel();
         lbRep6 = new javax.swing.JLabel();
@@ -60,8 +58,6 @@ public class AffReponse extends javax.swing.JFrame implements Observateur{
         jLabel1.setText("Fiche du client:");
 
         jLabel2.setText("Vous vivez :");
-
-        jLabel3.setText("Avec :");
 
         jLabel4.setText("vous étiez déjà assuré :");
 
@@ -112,11 +108,7 @@ public class AffReponse extends javax.swing.JFrame implements Observateur{
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(lbRep2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbRep3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(229, 229, 229))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
@@ -150,11 +142,8 @@ public class AffReponse extends javax.swing.JFrame implements Observateur{
                     .addComponent(lbRep1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel3)
-                        .addComponent(lbRep2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbRep3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbRep2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -162,10 +151,11 @@ public class AffReponse extends javax.swing.JFrame implements Observateur{
                     .addComponent(lbRep4, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel8)
-                        .addComponent(lbRep5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lbRep5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)))
                     .addComponent(lbRep6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,7 +216,6 @@ public class AffReponse extends javax.swing.JFrame implements Observateur{
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -235,7 +224,6 @@ public class AffReponse extends javax.swing.JFrame implements Observateur{
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lbRep1;
     private javax.swing.JLabel lbRep2;
-    private javax.swing.JLabel lbRep3;
     private javax.swing.JLabel lbRep4;
     private javax.swing.JLabel lbRep5;
     private javax.swing.JLabel lbRep6;
@@ -248,15 +236,24 @@ public class AffReponse extends javax.swing.JFrame implements Observateur{
     @Override
     public void notifier() {
         
-        lbRep1.setText(Lr.getReponse1());
-        lbRep2.setText(Lr.getReponse2());
-        lbRep3.setText(Lr.getReponse3());
+        lbRep1.setText(trueOrFalse(Lr.getReponse1()));
+        lbRep2.setText(trueOrFalse(Lr.getReponse2()));
         lbRep4.setText(Lr.getReponse4()+"");
-        lbRep5.setText(Lr.getReponse5());
+        lbRep5.setText(trueOrFalse(Lr.getReponse5()));
         lbRep6.setText(Lr.getReponse6()+"");
-        lbRep7.setText(Lr.getReponse7());
-        lbRep8.setText(Lr.getReponse8());
-        lbRep9.setText(Lr.getReponse9());
+        lbRep7.setText(trueOrFalse(Lr.getReponse7()));
+        lbRep8.setText(trueOrFalse(Lr.getReponse8()));
+        lbRep9.setText(trueOrFalse(Lr.getReponse9()));
        
+    }
+    
+    public String trueOrFalse(boolean reponse) {
+        if(reponse == true)
+        {
+            return "Oui";
+        }
+        else{
+            return "Non";
+        }
     }
 }
