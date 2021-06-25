@@ -12,7 +12,8 @@ import models.ListReponse;
  * @author manu
  */
 public class Question extends javax.swing.JFrame {
-
+    
+    
     /**
      * Creates new form Question
      */
@@ -22,6 +23,7 @@ public class Question extends javax.swing.JFrame {
         jframe_Piece.setVisible(false);
         jframe_Jard.setVisible(false);
         jframe_exp.setVisible(false);
+        
     }
     ListReponse Lr = new ListReponse();
     /**
@@ -33,13 +35,18 @@ public class Question extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGroupAcc = new javax.swing.ButtonGroup();
+        btnGroupAss = new javax.swing.ButtonGroup();
+        btnGroupMais = new javax.swing.ButtonGroup();
+        btnGroupJard = new javax.swing.ButtonGroup();
+        btnGroupVoit = new javax.swing.ButtonGroup();
+        btnGroupTele = new javax.swing.ButtonGroup();
         jframe_Acc6 = new javax.swing.JInternalFrame();
         jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        textBAcc = new javax.swing.JTextField();
         btnAcc = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
-        tbAcc = new javax.swing.JTextField();
+        rBtnOuiAcc = new javax.swing.JRadioButton();
+        rBtnNonAcc = new javax.swing.JRadioButton();
         jframe_ASS = new javax.swing.JInternalFrame();
         jLabel17 = new javax.swing.JLabel();
         rBtnOuiAssur = new javax.swing.JRadioButton();
@@ -82,9 +89,7 @@ public class Question extends javax.swing.JFrame {
 
         jframe_Acc6.setVisible(true);
 
-        jLabel15.setText("Vivez-vous seul(e) ou accompagné(e) ?");
-
-        jLabel16.setText("oui, avec votre conjoint(e), autre");
+        jLabel15.setText("Vivez-vous seul(e) ?");
 
         btnAcc.setText("Suivant");
         btnAcc.addActionListener(new java.awt.event.ActionListener() {
@@ -100,54 +105,58 @@ public class Question extends javax.swing.JFrame {
             }
         });
 
+        btnGroupAcc.add(rBtnOuiAcc);
+        rBtnOuiAcc.setText("Oui");
+
+        btnGroupAcc.add(rBtnNonAcc);
+        rBtnNonAcc.setText("Non");
+
         javax.swing.GroupLayout jframe_Acc6Layout = new javax.swing.GroupLayout(jframe_Acc6.getContentPane());
         jframe_Acc6.getContentPane().setLayout(jframe_Acc6Layout);
         jframe_Acc6Layout.setHorizontalGroup(
             jframe_Acc6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jframe_Acc6Layout.createSequentialGroup()
-                .addGap(97, 97, 97)
+                .addContainerGap(82, Short.MAX_VALUE)
                 .addGroup(jframe_Acc6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jframe_Acc6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jframe_Acc6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jframe_Acc6Layout.createSequentialGroup()
                             .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jframe_Acc6Layout.createSequentialGroup()
-                            .addComponent(jLabel15)
-                            .addGap(0, 11, Short.MAX_VALUE)))
-                    .addGroup(jframe_Acc6Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(jframe_Acc6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel16)
-                            .addComponent(textBAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tbAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(93, Short.MAX_VALUE))
+                            .addGap(32, 32, 32)
+                            .addComponent(btnAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap())
+                        .addGroup(jframe_Acc6Layout.createSequentialGroup()
+                            .addComponent(rBtnOuiAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(30, 30, 30)
+                            .addComponent(rBtnNonAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(44, 44, 44)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jframe_Acc6Layout.createSequentialGroup()
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(103, 103, 103))))
         );
         jframe_Acc6Layout.setVerticalGroup(
             jframe_Acc6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jframe_Acc6Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel15)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tbAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel16)
-                .addGap(18, 18, 18)
-                .addComponent(textBAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
                 .addGroup(jframe_Acc6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAcc)
-                    .addComponent(jButton8))
-                .addContainerGap(270, Short.MAX_VALUE))
+                    .addComponent(rBtnOuiAcc)
+                    .addComponent(rBtnNonAcc))
+                .addGap(39, 39, 39)
+                .addGroup(jframe_Acc6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton8)
+                    .addComponent(btnAcc))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
 
         jframe_ASS.setVisible(true);
 
         jLabel17.setText("Êtiez-vous assuré avant de venir vers nous ?");
 
-        rBtnOuiAssur.setSelected(true);
+        btnGroupAss.add(rBtnOuiAssur);
         rBtnOuiAssur.setText("Oui");
 
+        btnGroupAss.add(rBtnNonAssur);
         rBtnNonAssur.setText("Non");
 
         btnAssur.setText("Suivant");
@@ -205,7 +214,7 @@ public class Question extends javax.swing.JFrame {
                     .addComponent(rBtnNonAssur))
                 .addGap(48, 48, 48)
                 .addComponent(btnAssur)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         jframe_Piece.setVisible(true);
@@ -214,9 +223,10 @@ public class Question extends javax.swing.JFrame {
 
         jLabel19.setText("Avez-vous un ou plusieur étage(s) ?");
 
-        rBtnOuiEtage.setSelected(true);
+        btnGroupMais.add(rBtnOuiEtage);
         rBtnOuiEtage.setText("Oui");
 
+        btnGroupMais.add(rbtnNonEtage);
         rbtnNonEtage.setText("Non");
 
         jLabel20.setText("Combien d'étage ?");
@@ -243,17 +253,11 @@ public class Question extends javax.swing.JFrame {
                 .addGroup(jframe_PieceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jframe_PieceLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jframe_PieceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel18)
-                            .addGroup(jframe_PieceLayout.createSequentialGroup()
-                                .addGap(90, 90, 90)
-                                .addComponent(nbrEtage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jLabel18))
                     .addGroup(jframe_PieceLayout.createSequentialGroup()
                         .addGroup(jframe_PieceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jframe_PieceLayout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
+                                .addGap(166, 166, 166)
                                 .addComponent(btnInfHouse, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jframe_PieceLayout.createSequentialGroup()
                                 .addGap(62, 62, 62)
@@ -271,8 +275,13 @@ public class Question extends javax.swing.JFrame {
                         .addGap(88, 88, 88)
                         .addComponent(jLabel20))
                     .addGroup(jframe_PieceLayout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(nbrEtage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jframe_PieceLayout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addComponent(jLabel19)))
+                        .addGroup(jframe_PieceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jframe_PieceLayout.setVerticalGroup(
@@ -296,7 +305,7 @@ public class Question extends javax.swing.JFrame {
                 .addGroup(jframe_PieceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton11)
                     .addComponent(btnInfHouse))
-                .addContainerGap(289, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         jframe_exp.setVisible(true);
@@ -362,30 +371,33 @@ public class Question extends javax.swing.JFrame {
                 .addComponent(jButton14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton15)
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         jframe_Jard.setVisible(true);
 
         jLabel21.setText("Avez-vous un jardin ?");
 
-        rBtnOuiJard.setSelected(true);
+        btnGroupJard.add(rBtnOuiJard);
         rBtnOuiJard.setText("Oui");
 
+        btnGroupJard.add(rBtnNonJar);
         rBtnNonJar.setText("Non");
 
-        rBtnOuiVoiture.setSelected(true);
+        btnGroupVoit.add(rBtnOuiVoiture);
         rBtnOuiVoiture.setText("Oui");
 
         jLabel22.setText("Si oui, avez-vous une voiture ?");
 
+        btnGroupVoit.add(rBtnNonVoiture);
         rBtnNonVoiture.setText("Non");
 
+        btnGroupTele.add(rBtnNonTele);
         rBtnNonTele.setText("Non");
 
         jLabel23.setText("Avez-vous une télévision ?");
 
-        rBtnOuiTele.setSelected(true);
+        btnGroupTele.add(rBtnOuiTele);
         rBtnOuiTele.setText("Oui");
 
         jButton16.setText("Retour");
@@ -437,7 +449,7 @@ public class Question extends javax.swing.JFrame {
                         .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(42, 42, 42)
                         .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         jframe_JardLayout.setVerticalGroup(
             jframe_JardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -464,7 +476,7 @@ public class Question extends javax.swing.JFrame {
                 .addGroup(jframe_JardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton16)
                     .addComponent(btnDetail))
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -472,66 +484,58 @@ public class Question extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jframe_Acc6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jframe_Jard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jframe_ASS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jframe_exp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jframe_Piece, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jframe_Jard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jframe_Acc6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(jframe_ASS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78)
+                        .addComponent(jframe_Piece, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(162, 162, 162)
+                        .addComponent(jframe_exp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jframe_Acc6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jframe_Jard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jframe_Acc6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jframe_ASS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(93, 93, 93)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(195, 195, 195)
+                                .addComponent(jframe_Jard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(250, 250, 250)
+                                .addComponent(jframe_exp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(129, 129, 129)
-                        .addComponent(jframe_ASS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jframe_exp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jframe_Piece, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(250, 250, 250)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(122, 122, 122)
+                        .addComponent(jframe_Piece, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccActionPerformed
-        jframe_Acc6.setVisible(false);
-        jframe_Piece.setVisible(true);
-        Lr.setReponse2(tbAcc.getText());
-        Lr.setReponse3(textBAcc.getText());
-        System.out.println(Lr.getReponse2());
-        System.out.println(Lr.getReponse3());
-    }//GEN-LAST:event_btnAccActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        jframe_ASS.setVisible(true);// TODO add your handling code here:
-        jframe_Acc6.setVisible(false);
-    }//GEN-LAST:event_jButton8ActionPerformed
-
+ 
     private void btnAssurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssurActionPerformed
+        
         jframe_ASS.setVisible(false);
         jframe_Acc6.setVisible(true);
         if (rBtnOuiAssur.isSelected())
         {
-            Lr.setReponse1("oui");
+            Lr.setReponse1(true);
         }
         else
         {
-            Lr.setReponse1("non");
+            Lr.setReponse1(false);
         }
         System.out.println(Lr.getReponse1());
         
@@ -543,11 +547,11 @@ public class Question extends javax.swing.JFrame {
         Lr.setReponse4((int) nbrPiece.getValue());
         if (rBtnOuiEtage.isSelected())
         {
-            Lr.setReponse5("oui");
+            Lr.setReponse5(true);
         }
         else
         {
-             Lr.setReponse5("non");
+             Lr.setReponse5(false);
         }
         Lr.setReponse6((int) nbrEtage.getValue());
         System.out.println(Lr.getReponse4());
@@ -575,27 +579,27 @@ public class Question extends javax.swing.JFrame {
         jframe_exp.setVisible(true);
         if(rBtnOuiJard.isSelected())
         {
-            Lr.setReponse7("oui");
+            Lr.setReponse7(true);
         }
         else
         {
-            Lr.setReponse7("non" );
+            Lr.setReponse7(false );
         }
         if(rBtnOuiVoiture.isSelected())
         {
-            Lr.setReponse8("oui");
+            Lr.setReponse8(true);
         }
         else
         {
-            Lr.setReponse8("non");
+            Lr.setReponse8(false);
         }
         if(rBtnOuiTele.isSelected())
         {
-            Lr.setReponse9("oui");
+            Lr.setReponse9(true);
         }
         else
         {
-            Lr.setReponse9("non");
+            Lr.setReponse9(false);
         }
         System.out.println(Lr.getReponse7());
         System.out.println(Lr.getReponse8());
@@ -611,6 +615,27 @@ public class Question extends javax.swing.JFrame {
         Lr.ajouterObser(rep);
         rep.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        jframe_ASS.setVisible(true);// TODO add your handling code here:
+        jframe_Acc6.setVisible(false);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void btnAccActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccActionPerformed
+        jframe_Acc6.setVisible(false);
+        jframe_Piece.setVisible(true);
+        if(rBtnOuiAcc.isSelected())
+        {
+            Lr.setReponse2(true);
+        }
+        else
+        {
+            Lr.setReponse2(false);
+        }
+        
+        
+        System.out.println(Lr.getReponse2());
+    }//GEN-LAST:event_btnAccActionPerformed
 
     /**
      * @param args the command line arguments
@@ -642,7 +667,9 @@ public class Question extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new Question().setVisible(true);
+                
             }
         });
     }
@@ -651,6 +678,12 @@ public class Question extends javax.swing.JFrame {
     private javax.swing.JButton btnAcc;
     private javax.swing.JButton btnAssur;
     private javax.swing.JButton btnDetail;
+    private javax.swing.ButtonGroup btnGroupAcc;
+    private javax.swing.ButtonGroup btnGroupAss;
+    private javax.swing.ButtonGroup btnGroupJard;
+    private javax.swing.ButtonGroup btnGroupMais;
+    private javax.swing.ButtonGroup btnGroupTele;
+    private javax.swing.ButtonGroup btnGroupVoit;
     private javax.swing.JButton btnInfHouse;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
@@ -661,7 +694,6 @@ public class Question extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -680,17 +712,17 @@ public class Question extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jframe_exp;
     private javax.swing.JSpinner nbrEtage;
     private javax.swing.JSpinner nbrPiece;
+    private javax.swing.JRadioButton rBtnNonAcc;
     private javax.swing.JRadioButton rBtnNonAssur;
     private javax.swing.JRadioButton rBtnNonJar;
     private javax.swing.JRadioButton rBtnNonTele;
     private javax.swing.JRadioButton rBtnNonVoiture;
+    private javax.swing.JRadioButton rBtnOuiAcc;
     private javax.swing.JRadioButton rBtnOuiAssur;
     private javax.swing.JRadioButton rBtnOuiEtage;
     private javax.swing.JRadioButton rBtnOuiJard;
     private javax.swing.JRadioButton rBtnOuiTele;
     private javax.swing.JRadioButton rBtnOuiVoiture;
     private javax.swing.JRadioButton rbtnNonEtage;
-    private javax.swing.JTextField tbAcc;
-    private javax.swing.JTextField textBAcc;
     // End of variables declaration//GEN-END:variables
 }
