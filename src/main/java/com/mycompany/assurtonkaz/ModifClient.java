@@ -14,7 +14,7 @@ import models.*;
 /**
  * @author badbo
  */
-public class ModifClient extends javax.swing.JFrame {
+public class ModifClient extends javax.swing.JFrame implements ObservateurClient{
 
     /**
      * Creates new form ModifClient
@@ -42,7 +42,7 @@ public class ModifClient extends javax.swing.JFrame {
         MailInput = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setText("Prénom");
 
@@ -138,15 +138,18 @@ public class ModifClient extends javax.swing.JFrame {
             c.setPrenomClient(PrenomInput.getText());
             c.setTelClient(TelInput.getText());
             c.setMailClient(MailInput.getText());
+            c.ajouterOservateur(this);
 
-            PreparedStatement pst = co.prepareStatement("UPDATE public.\"Clients\" SET \"IdClient\"=?, \"NomClient\"=?, \"PrenomClient\"=?, \"TelClient\"=?, \"MailClient\"=? WHERE IdClient ="+c.getIdClient());
-            pst.setInt(1, c.getIdClient());
-            pst.setString(2, c.getNomClient());
-            pst.setString(3, c.getPrenomClient());
-            pst.setString(4, c.getTelClient());
-            pst.setString(5, c.getMailClient());
+            PreparedStatement pst = co.prepareStatement("UPDATE public.\"Clients\" SET \"NomClient\"=?, \"PrenomClient\"=?, \"TelClient\"=?, \"MailClient\"=? WHERE \"IdClient\" =?");
+            pst.setString(1, c.getNomClient());
+            pst.setString(2, c.getPrenomClient());
+            pst.setString(3, c.getTelClient());
+            pst.setString(4, c.getMailClient());
+            pst.setInt(5, c.getIdClient());
             pst.executeUpdate();
-            pst.close();
+            pst.close();      
+            notifier();
+            this.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(AddClient.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -206,4 +209,13 @@ public class ModifClient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void notifier() {
+        try {
+            ListeClientForm.jList1.setModel(Request.getListeClientForm());
+        } catch (SQLException ex) {
+            Logger.getLogger(AddClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

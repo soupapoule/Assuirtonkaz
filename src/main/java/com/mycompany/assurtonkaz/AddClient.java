@@ -10,16 +10,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.Client;
-import models.m_Connexion;
+import models.*;
 
 /**
  *
  * @author badbo
  */
-public class AddClient extends javax.swing.JFrame {
+public class AddClient extends javax.swing.JFrame implements ObservateurClient {
+
+    List<Client> listeClient = new ArrayList<Client>();
+    ListeClient modelClient = new ListeClient(listeClient);
+    Client c = new Client();
 
     /**
      * Creates new form AddClient
@@ -143,15 +148,16 @@ public class AddClient extends javax.swing.JFrame {
         try {
             Statement st = co.createStatement();
             ResultSet resultat = st.executeQuery("Select Count(*) from public.\"Clients\";");
-//            resultat.next();
+            resultat.next();
             count = resultat.getInt(1);
             //get
-            Client c = new Client();
+
             c.setIdClient(++count);
             c.setNomClient(NomInput.getText());
             c.setPrenomClient(PrenomInput.getText());
             c.setTelClient(TelInput.getText());
             c.setMailClient(MailInput.getText());
+            c.ajouterOservateur(this);
 
             PreparedStatement pst = co.prepareStatement("INSERT INTO public.\"Clients\" VALUES (?,?,?,?,?)");
             pst.setInt(1, c.getIdClient());
@@ -161,6 +167,8 @@ public class AddClient extends javax.swing.JFrame {
             pst.setString(5, c.getMailClient());
             pst.executeUpdate();
             pst.close();
+            notifier();
+            this.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(AddClient.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -212,4 +220,14 @@ public class AddClient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void notifier() {
+//        modelClient.addClient(c);
+        try {
+            ListeClientForm.jList1.setModel(Request.getListeClientForm());
+        } catch (SQLException ex) {
+            Logger.getLogger(AddClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

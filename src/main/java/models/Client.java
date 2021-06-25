@@ -9,7 +9,8 @@ package models;
  *
  * @author badbo
  */
-public class Client {
+public class Client extends SujetClient{
+    
     private Integer IdClient;
     private String NomClient;
     private String PrenomClient;
@@ -22,6 +23,7 @@ public class Client {
 
     public void setIdClient(Integer IdClient) {
         this.IdClient = IdClient;
+        this. notifierOservateur();
     }
 
     public String getNomClient() {
@@ -30,6 +32,7 @@ public class Client {
 
     public void setNomClient(String NomClient) {
         this.NomClient = NomClient;
+        this. notifierOservateur();
     }
 
     public String getPrenomClient() {
@@ -43,6 +46,7 @@ public class Client {
 
     public void setPrenomClient(String PrenomClient) {
         this.PrenomClient = PrenomClient;
+        this. notifierOservateur();
     }
 
     public String getTelClient() {
@@ -51,6 +55,7 @@ public class Client {
 
     public void setTelClient(String TelClient) {
         this.TelClient = TelClient;
+        this. notifierOservateur();
     }
 
     public String getMailClient() {
@@ -59,6 +64,7 @@ public class Client {
 
     public void setMailClient(String MailClient) {
         this.MailClient = MailClient;
+        this. notifierOservateur();
     }
 
     public Client(Integer IdClient, String NomClient, String PrenomClient, String TelClient, String MailClient) {

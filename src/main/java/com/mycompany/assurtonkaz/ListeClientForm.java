@@ -10,13 +10,13 @@ import static com.mycompany.assurtonkaz.ModifClient.NomInput;
 import static com.mycompany.assurtonkaz.ModifClient.PrenomInput;
 import static com.mycompany.assurtonkaz.ModifClient.TelInput;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.Client;
-import models.ListeClient;
+import models.*;
 import models.m_Connexion;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,40 +25,21 @@ import java.util.List;
  *
  * @author badbo
  */
-public class ListeClientForm extends javax.swing.JFrame {
-
+public class ListeClientForm extends javax.swing.JFrame implements ObservateurClient{
+    
     List<Client> listeClient = new ArrayList<Client>();
     ListeClient modelClient = new ListeClient(listeClient);
     Connection co = m_Connexion.connexion();
     Statement st = co.createStatement();
-    
 
     /**
      * Create s new form ListeClient
      */
     public ListeClientForm() throws SQLException {
         initComponents();
-ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
+        jList1.setModel(Request.getListeClientForm());
         
-        while (resultat.next()) {
-            Integer id = resultat.getInt("IdClient");
-            String nom = resultat.getString("NomClient");
-            String prenom = resultat.getString("PrenomClient");
-            String tel = resultat.getString("TelClient");
-            String mail = resultat.getString("MailClient");
 
-            Client c = new Client();
-            c.setIdClient(id);
-            c.setNomClient(nom);
-            c.setPrenomClient(prenom);
-            c.setMailClient(mail);
-            c.setTelClient(tel);
-
-            
-            modelClient.addClient(c);
-            jList1.setModel(modelClient);
-        }
-        
     }
 
     /**
@@ -76,6 +57,8 @@ ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
         jList1 = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jDeleteButton = new javax.swing.JButton();
+        jModifButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -100,10 +83,24 @@ ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Liste de client ");
 
-        jButton1.setText("Selectionner");
+        jButton1.setText("Créer");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jDeleteButton.setText("Supprimer");
+        jDeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDeleteButtonActionPerformed(evt);
+            }
+        });
+
+        jModifButton.setText("Modifier");
+        jModifButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jModifButtonActionPerformed(evt);
             }
         });
 
@@ -128,6 +125,11 @@ ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
         jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jMenu2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jMenu2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -141,13 +143,20 @@ ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
                     .addGroup(layout.createSequentialGroup()
                         .addGap(257, 257, 257)
                         .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(283, 283, 283)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(192, 192, 192)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(52, 52, 52)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(56, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jModifButton)
+                .addGap(61, 61, 61)
+                .addComponent(jDeleteButton)
+                .addGap(249, 249, 249))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,7 +165,11 @@ ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(74, 74, 74)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jDeleteButton)
+                    .addComponent(jModifButton))
+                .addGap(3, 3, 3)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -179,47 +192,67 @@ ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jList1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseReleased
-        
+
     }//GEN-LAST:event_jList1MouseReleased
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         // TODO add your handling code here:
+
+    }//GEN-LAST:event_jList1MouseClicked
+
+    private void jModifButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jModifButtonActionPerformed
+        // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-             Integer idSelected;
-             ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
-             idSelected = jList1.getSelectedIndex() + 1; 
+            Integer idSelected;
+            ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
+            idSelected = jList1.getSelectedIndex() + 1;
             while (resultat.next()) {
-                
-                Integer id = resultat.getInt("IdClient"); 
-                
-                if(idSelected.equals(id)){
-                String nom = resultat.getString("NomClient");
-                String prenom = resultat.getString("PrenomClient");
-                String tel = resultat.getString("TelClient");
-                String mail = resultat.getString("MailClient");
-                
-                Client c = new Client();
-                c.setIdClient(id);
-                c.setNomClient(nom);
-                c.setPrenomClient(prenom);
-                c.setMailClient(mail);
-                c.setTelClient(tel);
-                
-                ModifClient modifC = new ModifClient();
-                modifC.NomInput.setText(c.getNomClient());
-                modifC.PrenomInput.setText(c.getPrenomClient());
-                modifC.TelInput.setText(c.getTelClient());
-                modifC.MailInput.setText(c.getMailClient());
-                modifC.setVisible(true);
-                }else{
-                   continue;
+
+                Integer id = resultat.getInt("IdClient");
+
+                if (idSelected.equals(id)) {
+                    String nom = resultat.getString("NomClient");
+                    String prenom = resultat.getString("PrenomClient");
+                    String tel = resultat.getString("TelClient");
+                    String mail = resultat.getString("MailClient");
+
+                    Client c = new Client();
+                    c.setIdClient(id);
+                    c.setNomClient(nom);
+                    c.setPrenomClient(prenom);
+                    c.setMailClient(mail);
+                    c.setTelClient(tel);
+
+                    ModifClient modifC = new ModifClient();
+                    modifC.NomInput.setText(c.getNomClient());
+                    modifC.PrenomInput.setText(c.getPrenomClient());
+                    modifC.TelInput.setText(c.getTelClient());
+                    modifC.MailInput.setText(c.getMailClient());
+                    modifC.setVisible(true);
+                    resultat.close();
+                    break;
+                } else {
+                    continue;
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(ListeClientForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jList1MouseClicked
+    }//GEN-LAST:event_jModifButtonActionPerformed
+
+    private void jDeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDeleteButtonActionPerformed
+        // TODO add your handling code here:
+        Integer idSelected;
+        idSelected = jList1.getSelectedIndex() + 1;
+        Request req = new Request();
+        req.DeleteClient(idSelected);
+    }//GEN-LAST:event_jDeleteButtonActionPerformed
+
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jMenu2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -262,14 +295,21 @@ ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jDeleteButton;
     private javax.swing.JLabel jLabel1;
     public static javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JButton jModifButton;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.PopupMenu popupMenu1;
     private java.awt.PopupMenu popupMenu2;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void notifier() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
