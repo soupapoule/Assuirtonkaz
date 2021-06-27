@@ -140,7 +140,7 @@ public class ModifClient extends javax.swing.JFrame implements ObservateurClient
             c.setMailClient(MailInput.getText());
             c.ajouterOservateur(this);
 
-            PreparedStatement pst = co.prepareStatement("UPDATE public.\"clients\" SET \"nomclient\"=?, \"^prenomclient\"=?, \"telclient\"=?, \"mailclient\"=? WHERE \"idclient\" =?");
+            PreparedStatement pst = co.prepareStatement("UPDATE public.\"clients\" SET \"nomclient\"=?, \"^pr  enomclient\"=?, \"telclient\"=?, \"mailclient\"=? WHERE \"idclient\" =?");
             pst.setString(1, c.getNomClient());
             pst.setString(2, c.getPrenomClient());
             pst.setString(3, c.getTelClient());

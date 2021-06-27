@@ -5,6 +5,9 @@
  */
 package com.mycompany.assurtonkaz;
 
+
+
+
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -30,7 +33,6 @@ import javax.swing.JFileChooser;
 import models.Client;
 import models.ListReponse;
 import models.m_Connexion;
-
 /**
  *
  * @author manu
@@ -674,7 +676,6 @@ public class Question extends javax.swing.JFrame {
             pst.executeUpdate();
             pst.close();
 //            notifier();
-            this.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(AddClient.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -726,7 +727,7 @@ public class Question extends javax.swing.JFrame {
         
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(path+"contrat"+ Lr.getClient().getNomClient()+ Lr.getClient().getPrenomClient() +".pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("contrat"+ Lr.getClient().getNomClient()+ Lr.getClient().getPrenomClient() +".pdf"));
             document.open();
             Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
             Chunk chunk = new Chunk("Hello World", font);
