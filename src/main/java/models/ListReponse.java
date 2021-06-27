@@ -26,7 +26,7 @@ public class ListReponse extends Sujet implements Serializable {
     private boolean isGarden;
     private boolean isCar;
     private boolean isTv;
-    private int IdClientCont;
+    private Client client;
     public ListReponse() {
                 
     }
@@ -108,14 +108,16 @@ public class ListReponse extends Sujet implements Serializable {
         this.notifierObser();
     }
 
-    public int getIdClientCont() {
-        return IdClientCont;
+    public Client getClient() {
+        return client;
     }
 
-    public void setIdClientCont(int IdClientCont) {
-        this.IdClientCont = IdClientCont;
+    public void setClient(Client client) {
+        this.client = client;
         this.notifierObser();
     }
+
+   
     public static void afficherQuestion(Integer idSelected) throws SQLException
     {
         Connection co = m_Connexion.connexion();
@@ -131,9 +133,13 @@ public class ListReponse extends Sujet implements Serializable {
                     System.out.println(IdClient);
                     Client c = new Client();
                     c.setIdClient(id);
+                    c.setNomClient(resultat.getString("nomclient"));
+                    c.setMailClient(resultat.getString("mailclient"));
+                    c.setPrenomClient(resultat.getString("prenomclient"));
+                    c.setTelClient(resultat.getString("telclient"));
                     
 
-                    Question q = new Question(IdClient);
+                    Question q = new Question(c);
 //                    q.idClient = IdClient;
                     q.setVisible(true);
                     resultat.close();
