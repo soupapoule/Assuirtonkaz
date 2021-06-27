@@ -5,11 +5,20 @@
  */
 package com.mycompany.assurtonkaz;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.mycompany.assurtonkaz.AddClient;
 import static com.mycompany.assurtonkaz.AddClient.MailInput;
 import static com.mycompany.assurtonkaz.AddClient.NomInput;
 import static com.mycompany.assurtonkaz.AddClient.PrenomInput;
 import static com.mycompany.assurtonkaz.AddClient.TelInput;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +26,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import models.ListReponse;
 import models.m_Connexion;
 
@@ -71,6 +81,7 @@ public class Question extends javax.swing.JFrame {
         btnGroupJard = new javax.swing.ButtonGroup();
         btnGroupVoit = new javax.swing.ButtonGroup();
         btnGroupTele = new javax.swing.ButtonGroup();
+        exportPDF = new javax.swing.JFileChooser();
         jframe_Acc6 = new javax.swing.JInternalFrame();
         jLabel15 = new javax.swing.JLabel();
         btnAcc = new javax.swing.JButton();
@@ -98,7 +109,7 @@ public class Question extends javax.swing.JFrame {
         jButton11 = new javax.swing.JButton();
         jframe_exp = new javax.swing.JInternalFrame();
         jLabel1 = new javax.swing.JLabel();
-        jButton12 = new javax.swing.JButton();
+        btnPdf = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
@@ -176,7 +187,7 @@ public class Question extends javax.swing.JFrame {
                 .addGroup(jframe_Acc6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton8)
                     .addComponent(btnAcc))
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
 
         jframe_ASS.setVisible(true);
@@ -244,7 +255,7 @@ public class Question extends javax.swing.JFrame {
                     .addComponent(rBtnNonAssur))
                 .addGap(48, 48, 48)
                 .addComponent(btnAssur)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
 
         jframe_Piece.setVisible(true);
@@ -335,14 +346,19 @@ public class Question extends javax.swing.JFrame {
                 .addGroup(jframe_PieceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton11)
                     .addComponent(btnInfHouse))
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(182, Short.MAX_VALUE))
         );
 
         jframe_exp.setVisible(true);
 
         jLabel1.setText("Exporter");
 
-        jButton12.setText("PDF");
+        btnPdf.setText("PDF");
+        btnPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPdfActionPerformed(evt);
+            }
+        });
 
         jButton13.setText(".txt");
 
@@ -374,7 +390,7 @@ public class Question extends javax.swing.JFrame {
                                 .addComponent(jButton14, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jframe_expLayout.createSequentialGroup()
-                                .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                                 .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jframe_expLayout.createSequentialGroup()
@@ -395,13 +411,13 @@ public class Question extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(jframe_expLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton12)
+                    .addComponent(btnPdf)
                     .addComponent(jButton13))
                 .addGap(18, 18, 18)
                 .addComponent(jButton14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton15)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
 
         jframe_Jard.setVisible(true);
@@ -438,7 +454,6 @@ public class Question extends javax.swing.JFrame {
         });
 
         btnDetail.setText("Enregistrer");
-        btnDetail.setActionCommand("Enregistrer");
         btnDetail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDetailActionPerformed(evt);
@@ -507,7 +522,7 @@ public class Question extends javax.swing.JFrame {
                 .addGroup(jframe_JardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton16)
                     .addComponent(btnDetail))
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -695,6 +710,38 @@ public class Question extends javax.swing.JFrame {
         System.out.println(Lr.getIsAlone());
     }//GEN-LAST:event_btnAccActionPerformed
 
+    private void btnPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPdfActionPerformed
+        
+        String path ="";
+        JFileChooser ex= new JFileChooser();
+        ex.setVisible(true);
+        ex.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int x = ex.showSaveDialog(this);
+        
+        if(x==JFileChooser.APPROVE_OPTION)
+        {
+            path =ex.getSelectedFile().getPath();
+        }
+        
+        Document document = new Document();
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(path+"contrat.pdf"));
+            document.open();
+            Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
+            Chunk chunk = new Chunk("Hello World", font);
+            document.add(chunk);
+        document.close();
+        } catch (FileNotFoundException ex1) {
+            Logger.getLogger(Question.class.getName()).log(Level.SEVERE, null, ex1);
+        } catch (DocumentException ex1) {
+            Logger.getLogger(Question.class.getName()).log(Level.SEVERE, null, ex1);
+        }
+
+        
+
+        
+    }//GEN-LAST:event_btnPdfActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -743,8 +790,9 @@ public class Question extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btnGroupTele;
     private javax.swing.ButtonGroup btnGroupVoit;
     private javax.swing.JButton btnInfHouse;
+    private javax.swing.JButton btnPdf;
+    private javax.swing.JFileChooser exportPDF;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
