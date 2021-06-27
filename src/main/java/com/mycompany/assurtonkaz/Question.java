@@ -27,6 +27,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import models.Client;
 import models.ListReponse;
 import models.m_Connexion;
 
@@ -35,7 +36,8 @@ import models.m_Connexion;
  * @author manu
  */
 public class Question extends javax.swing.JFrame {
-    public Integer idClient;
+   
+    
     
     
     /**
@@ -45,14 +47,13 @@ public class Question extends javax.swing.JFrame {
         initComponents();
     }
     
-    public Question(Integer idClient) {
+    public Question(Client client) {
         initComponents();
         jframe_Acc6.setVisible(false);
         jframe_Piece.setVisible(false);
         jframe_Jard.setVisible(false);
         jframe_exp.setVisible(false);
-        Lr.setIdClientCont(idClient);
-        System.out.println(idClient);
+        Lr.setClient(client);
     }
     
 //    public Question(Integer idClient) {
@@ -668,7 +669,7 @@ public class Question extends javax.swing.JFrame {
             pst.setBoolean(6, Lr.getIsGarden());
             pst.setBoolean(7, Lr.getIsCar());
             pst.setBoolean(8, Lr.getIsTv());
-            pst.setInt(9, Lr.getIdClientCont());
+            pst.setInt(9, Lr.getClient().getIdClient());
            
             pst.executeUpdate();
             pst.close();
@@ -725,7 +726,7 @@ public class Question extends javax.swing.JFrame {
         
         Document document = new Document();
         try {
-            PdfWriter.getInstance(document, new FileOutputStream(path+"contrat.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream(path+"contrat"+ Lr.getClient().getNomClient()+ Lr.getClient().getPrenomClient() +".pdf"));
             document.open();
             Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
             Chunk chunk = new Chunk("Hello World", font);
