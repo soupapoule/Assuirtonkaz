@@ -147,7 +147,7 @@ public class AddClient extends javax.swing.JFrame implements ObservateurClient {
         int count;
         try {
             Statement st = co.createStatement();
-            ResultSet resultat = st.executeQuery("Select Count(*) from public.\"Clients\";");
+            ResultSet resultat = st.executeQuery("Select Count(*) from public.\"clients\";");
             resultat.next();
             count = resultat.getInt(1);
             //get
@@ -159,7 +159,7 @@ public class AddClient extends javax.swing.JFrame implements ObservateurClient {
             c.setMailClient(MailInput.getText());
             c.ajouterOservateur(this);
 
-            PreparedStatement pst = co.prepareStatement("INSERT INTO public.\"Clients\" VALUES (?,?,?,?,?)");
+            PreparedStatement pst = co.prepareStatement("INSERT INTO public.\"clients\" VALUES (?,?,?,?,?)");
             pst.setInt(1, c.getIdClient());
             pst.setString(2, c.getNomClient());
             pst.setString(3, c.getPrenomClient());

@@ -3,15 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.assurtoncaz;
+package com.mycompany.assurtonkaz;
 
+import com.mycompany.assurtonkaz.AddClient;
+import static com.mycompany.assurtonkaz.AddClient.MailInput;
+import static com.mycompany.assurtonkaz.AddClient.NomInput;
+import static com.mycompany.assurtonkaz.AddClient.PrenomInput;
+import static com.mycompany.assurtonkaz.AddClient.TelInput;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.ListReponse;
+import models.m_Connexion;
 
 /**
  *
  * @author manu
  */
 public class Question extends javax.swing.JFrame {
+    public Integer idClient;
     
     
     /**
@@ -19,12 +33,28 @@ public class Question extends javax.swing.JFrame {
      */
     public Question() {
         initComponents();
+    }
+    
+    public Question(Integer idClient) {
+        initComponents();
         jframe_Acc6.setVisible(false);
         jframe_Piece.setVisible(false);
         jframe_Jard.setVisible(false);
         jframe_exp.setVisible(false);
-        
+        Lr.setIdClientCont(idClient);
+        System.out.println(idClient);
     }
+    
+//    public Question(Integer idClient) {
+//        initComponents();
+//        jframe_Acc6.setVisible(false);
+//        jframe_Piece.setVisible(false);
+//        jframe_Jard.setVisible(false);
+//        jframe_exp.setVisible(false);
+//        Lr.setIdClientCont(idClient);
+//        System.out.println(idClient);
+//    }
+    
     ListReponse Lr = new ListReponse();
     /**
      * This method is called from within the constructor to initialize the form.
@@ -118,17 +148,17 @@ public class Question extends javax.swing.JFrame {
             .addGroup(jframe_Acc6Layout.createSequentialGroup()
                 .addContainerGap(82, Short.MAX_VALUE)
                 .addGroup(jframe_Acc6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jframe_Acc6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jframe_Acc6Layout.createSequentialGroup()
-                            .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(32, 32, 32)
-                            .addComponent(btnAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap())
-                        .addGroup(jframe_Acc6Layout.createSequentialGroup()
-                            .addComponent(rBtnOuiAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(30, 30, 30)
-                            .addComponent(rBtnNonAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(44, 44, 44)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jframe_Acc6Layout.createSequentialGroup()
+                        .addGroup(jframe_Acc6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jframe_Acc6Layout.createSequentialGroup()
+                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32)
+                                .addComponent(btnAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jframe_Acc6Layout.createSequentialGroup()
+                                .addComponent(rBtnOuiAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(rBtnNonAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(44, 44, 44))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jframe_Acc6Layout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(103, 103, 103))))
@@ -146,7 +176,7 @@ public class Question extends javax.swing.JFrame {
                 .addGroup(jframe_Acc6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton8)
                     .addComponent(btnAcc))
-                .addContainerGap(183, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
 
         jframe_ASS.setVisible(true);
@@ -214,7 +244,7 @@ public class Question extends javax.swing.JFrame {
                     .addComponent(rBtnNonAssur))
                 .addGap(48, 48, 48)
                 .addComponent(btnAssur)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
 
         jframe_Piece.setVisible(true);
@@ -305,7 +335,7 @@ public class Question extends javax.swing.JFrame {
                 .addGroup(jframe_PieceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton11)
                     .addComponent(btnInfHouse))
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         jframe_exp.setVisible(true);
@@ -371,7 +401,7 @@ public class Question extends javax.swing.JFrame {
                 .addComponent(jButton14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton15)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         jframe_Jard.setVisible(true);
@@ -407,7 +437,8 @@ public class Question extends javax.swing.JFrame {
             }
         });
 
-        btnDetail.setText("Suivant");
+        btnDetail.setText("Enregistrer");
+        btnDetail.setActionCommand("Enregistrer");
         btnDetail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDetailActionPerformed(evt);
@@ -445,10 +476,10 @@ public class Question extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(rBtnNonJar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jframe_JardLayout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54)
+                        .addComponent(jButton16, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(42, 42, 42)
-                        .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnDetail)))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
         jframe_JardLayout.setVerticalGroup(
@@ -476,7 +507,7 @@ public class Question extends javax.swing.JFrame {
                 .addGroup(jframe_JardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton16)
                     .addComponent(btnDetail))
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addContainerGap(164, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -519,7 +550,7 @@ public class Question extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(122, 122, 122)
                         .addComponent(jframe_Piece, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         pack();
@@ -531,32 +562,32 @@ public class Question extends javax.swing.JFrame {
         jframe_Acc6.setVisible(true);
         if (rBtnOuiAssur.isSelected())
         {
-            Lr.setReponse1(true);
+            Lr.setIsAssure(true);
         }
         else
         {
-            Lr.setReponse1(false);
+            Lr.setIsAssure(false);
         }
-        System.out.println(Lr.getReponse1());
+        System.out.println(Lr.getIsAssure());
         
     }//GEN-LAST:event_btnAssurActionPerformed
 
     private void btnInfHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInfHouseActionPerformed
         jframe_Piece.setVisible(false);
         jframe_Jard.setVisible(true);
-        Lr.setReponse4((int) nbrPiece.getValue());
+        Lr.setNbPiece((int) nbrPiece.getValue());
         if (rBtnOuiEtage.isSelected())
         {
-            Lr.setReponse5(true);
+            Lr.setIsFloor(true);
         }
         else
         {
-             Lr.setReponse5(false);
+             Lr.setIsFloor(false);
         }
-        Lr.setReponse6((int) nbrEtage.getValue());
-        System.out.println(Lr.getReponse4());
-        System.out.println(Lr.getReponse5());
-        System.out.println(Lr.getReponse6());
+        Lr.setNbFloor((int) nbrEtage.getValue());
+        System.out.println(Lr.getNbPiece());
+        System.out.println(Lr.getIsFloor());
+        System.out.println(Lr.getIsFloor());
     }//GEN-LAST:event_btnInfHouseActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -575,35 +606,62 @@ public class Question extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void btnDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailActionPerformed
+        //Save in BDD
         jframe_Jard.setVisible(false);
         jframe_exp.setVisible(true);
         if(rBtnOuiJard.isSelected())
         {
-            Lr.setReponse7(true);
+            Lr.setIsGarden(true);
         }
         else
         {
-            Lr.setReponse7(false );
+            Lr.setIsGarden(false );
         }
         if(rBtnOuiVoiture.isSelected())
         {
-            Lr.setReponse8(true);
+            Lr.setIsCar(true);
         }
         else
         {
-            Lr.setReponse8(false);
+            Lr.setIsCar(false);
         }
         if(rBtnOuiTele.isSelected())
         {
-            Lr.setReponse9(true);
+            Lr.setIsTv(true);
         }
         else
         {
-            Lr.setReponse9(false);
+            Lr.setIsTv(false);
         }
-        System.out.println(Lr.getReponse7());
-        System.out.println(Lr.getReponse8());
-        System.out.println(Lr.getReponse9());
+        System.out.println(Lr.getIsGarden());
+        System.out.println(Lr.getIsCar());
+        System.out.println(Lr.getIsTv());
+        
+        Connection co = m_Connexion.connexion();
+        int count;
+        try {
+            Statement st = co.createStatement();
+            
+            
+
+            PreparedStatement pst = co.prepareStatement("INSERT INTO public.\"Contrat\" VALUES (?,?,?,?,?,?,?,?,?)");
+            pst.setBoolean(1, Lr.getIsAssure());
+            pst.setBoolean(2, Lr.getIsAlone());
+            pst.setInt(3, Lr.getNbPiece());
+            pst.setInt(4, Lr.getNbFloor());
+            pst.setBoolean(5, Lr.getIsFloor());
+            pst.setBoolean(6, Lr.getIsGarden());
+            pst.setBoolean(7, Lr.getIsCar());
+            pst.setBoolean(8, Lr.getIsTv());
+            pst.setInt(9, Lr.getIdClientCont());
+           
+            pst.executeUpdate();
+            pst.close();
+//            notifier();
+            this.dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(AddClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnDetailActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
@@ -626,15 +684,15 @@ public class Question extends javax.swing.JFrame {
         jframe_Piece.setVisible(true);
         if(rBtnOuiAcc.isSelected())
         {
-            Lr.setReponse2(true);
+            Lr.setIsAlone(true);
         }
         else
         {
-            Lr.setReponse2(false);
+            Lr.setIsAlone(false);
         }
         
         
-        System.out.println(Lr.getReponse2());
+        System.out.println(Lr.getIsAlone());
     }//GEN-LAST:event_btnAccActionPerformed
 
     /**

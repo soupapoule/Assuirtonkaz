@@ -33,14 +33,14 @@ public class Request implements ObservateurClient{
         Connection co = m_Connexion.connexion();
         Statement st = co.createStatement();
 
-        ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
+        ResultSet resultat = st.executeQuery("Select * from public.\"clients\";");
 
         while (resultat.next()) {
-            Integer id = resultat.getInt("IdClient");
-            String nom = resultat.getString("NomClient");
-            String prenom = resultat.getString("PrenomClient");
-            String tel = resultat.getString("TelClient");
-            String mail = resultat.getString("MailClient");
+            Integer id = resultat.getInt("idclient");
+            String nom = resultat.getString("nomclient");
+            String prenom = resultat.getString("prenomclient");
+            String tel = resultat.getString("telclient");
+            String mail = resultat.getString("mailclient");
 
             Client c = new Client();
             c.setIdClient(id);
@@ -58,12 +58,12 @@ public class Request implements ObservateurClient{
         try {
             Connection co = m_Connexion.connexion();
             Statement st = co.createStatement();
-            ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
+            ResultSet resultat = st.executeQuery("Select * from public.\"clients\";");
             while (resultat.next()) {
 
                 Integer id = resultat.getInt("IdClient");
                 if (idSelected.equals(id)) {
-                    PreparedStatement pst = co.prepareStatement("DELETE FROM public.\"Clients\" WHERE \"IdClient\" = ?");
+                    PreparedStatement pst = co.prepareStatement("DELETE FROM public.\"clients\" WHERE \"idclient\" = ?");
                     pst.setInt(1, id);
                     pst.executeUpdate();
                     pst.close();

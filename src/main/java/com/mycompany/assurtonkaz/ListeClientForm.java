@@ -178,7 +178,13 @@ public class ListeClientForm extends javax.swing.JFrame implements ObservateurCl
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+         Integer idSelected;
+         idSelected = jList1.getSelectedIndex() + 1;
+        try {
+            ListReponse.afficherQuestion(idSelected);
+        } catch (SQLException ex) {
+            Logger.getLogger(ListeClientForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
@@ -205,17 +211,17 @@ public class ListeClientForm extends javax.swing.JFrame implements ObservateurCl
         try {
             // TODO add your handling code here:
             Integer idSelected;
-            ResultSet resultat = st.executeQuery("Select * from public.\"Clients\";");
+            ResultSet resultat = st.executeQuery("Select * from public.\"clients\";");
             idSelected = jList1.getSelectedIndex() + 1;
             while (resultat.next()) {
 
-                Integer id = resultat.getInt("IdClient");
+                Integer id = resultat.getInt("idclient");
 
                 if (idSelected.equals(id)) {
-                    String nom = resultat.getString("NomClient");
-                    String prenom = resultat.getString("PrenomClient");
-                    String tel = resultat.getString("TelClient");
-                    String mail = resultat.getString("MailClient");
+                    String nom = resultat.getString("nomclient");
+                    String prenom = resultat.getString("prenomclient");
+                    String tel = resultat.getString("telclient");
+                    String mail = resultat.getString("mailclient");
 
                     Client c = new Client();
                     c.setIdClient(id);

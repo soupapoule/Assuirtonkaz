@@ -128,7 +128,7 @@ public class ModifClient extends javax.swing.JFrame implements ObservateurClient
         int count;
         try {
             Statement st = co.createStatement();
-            ResultSet resultat = st.executeQuery("Select Count(*) from public.\"Clients\";");
+            ResultSet resultat = st.executeQuery("Select Count(*) from public.\"clients\";");
             resultat.next();
             count = resultat.getInt(1);
             //get
@@ -140,7 +140,7 @@ public class ModifClient extends javax.swing.JFrame implements ObservateurClient
             c.setMailClient(MailInput.getText());
             c.ajouterOservateur(this);
 
-            PreparedStatement pst = co.prepareStatement("UPDATE public.\"Clients\" SET \"NomClient\"=?, \"PrenomClient\"=?, \"TelClient\"=?, \"MailClient\"=? WHERE \"IdClient\" =?");
+            PreparedStatement pst = co.prepareStatement("UPDATE public.\"clients\" SET \"nomclient\"=?, \"^prenomclient\"=?, \"telclient\"=?, \"mailclient\"=? WHERE \"idclient\" =?");
             pst.setString(1, c.getNomClient());
             pst.setString(2, c.getPrenomClient());
             pst.setString(3, c.getTelClient());
